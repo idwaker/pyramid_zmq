@@ -16,7 +16,6 @@ class ZeroMQ(object):
         self.context = zmq.Context()
         self.pushpull_url = kwargs.get('pushpull_url')
         self.pubsub_url = kwargs.get('pubsub_url')
-        print(self.url)
     
     def push(self):
         """ should return a zmq PUSH socket """
