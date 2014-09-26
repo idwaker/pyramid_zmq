@@ -6,6 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from .config import DEFAULT_SETTINGS
+from .hooks import GetZeroMQ
 
 
 class IncludeMe(object):
@@ -13,7 +14,7 @@ class IncludeMe(object):
 
     def __init__(self, **kwargs):
         self.default_settings = kwargs.get('default_settings', DEFAULT_SETTINGS)
-        self.get_zmq = kwargs.get('get_zmq', None)
+        self.get_zmq = kwargs.get('get_zmq', GetZeroMQ())
 
     def __call__(self, config):
         settings = config.get_settings()

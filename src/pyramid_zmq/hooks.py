@@ -40,7 +40,7 @@ class ZeroMQConfiguration(dict):
 
     def __call__(self, settings):
         """ Unpack the settings. """
-        
+        config = {}
         if ('zmq.url' in settings and
                 settings['zmq.url'] is not None):
             # Unpack.

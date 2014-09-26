@@ -41,6 +41,7 @@ setup(
     zip_safe = False,
     install_requires=[
         'pyzmq>=14.3.1',
+        'zope.component',
         'zope.interface',
     ]
 )
