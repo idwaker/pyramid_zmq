@@ -12,4 +12,4 @@ Using [pyramid_redis] as an example.
 
 Requires one of the the following [INI setting / environment variable][]:
 
-* `zmq.push.url`
+* `zmq.url`
