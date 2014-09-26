@@ -44,10 +44,12 @@ class ZeroMQConfiguration(dict):
         if ('zmq.url' in settings and
                 settings['zmq.url'] is not None):
             # Unpack.
-            url = settings['zmq.url']
+            pushpull_url = settings.get('zmq.pushpull.url', settings['zmq.url'])
+            pubsub_url = settings.get('zmq.pubsub.url', settings['zmq.url'])
 
             config.update({
-                'url': url,
+                'pushpull_url': pushpull_url,
+                'pubsub_url': pubsub_url
             })
         else:
             raise pyramid.exceptions.ConfigurationError(
