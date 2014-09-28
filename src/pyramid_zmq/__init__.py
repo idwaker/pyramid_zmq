@@ -11,7 +11,7 @@ from .hooks import ZeroMQFactory
 
 def zeromq_maker():
     factory = ZeroMQFactory()
-    return factory()
+    return factory(DEFAULT_SETTINGS)
 
 
 def _zeromq(request):
