@@ -23,7 +23,7 @@ import pyramid.exceptions
 from zope.component import getGlobalSiteManager
 from zope.interface import Interface
 from zope.interface import directlyProvides
-from .zmq import ZeroMQ
+from .zmq_context import ZMQContext
 
 
 class IZeroMQConfiguration(Interface):
@@ -65,7 +65,7 @@ class ZeroMQFactory(object):
         self.get_registry = kwargs.get('get_registry', getGlobalSiteManager)
         self.config = kwargs.get('parse_config', ZeroMQConfiguration())
         self.provides = kwargs.get('provides', directlyProvides)
-        self.zmq = kwargs.get('zmq_context', ZeroMQ)
+        self.zmq = kwargs.get('zmq_context', ZMQContext)
 
     def __call__(self, settings, registry=None):
         """Returns a ``zmq`` context that uses a configuration
@@ -102,4 +102,8 @@ class GetZeroMQ(object):
 
     def __call__(self, request):
         registry = request.registry
+        print(registry.settings)
         return self.zmq_factory(registry.settings, registry=registry)
+    
+    def from_settings(self, settings):
+        return self.zmq_factory(settings)

@@ -9,18 +9,8 @@ from .config import DEFAULT_SETTINGS
 from .hooks import GetZeroMQ
 
 
-class IncludeMe(object):
-    """Unpack the settings and provide ``request.zmq``."""
-
-    def __init__(self, **kwargs):
-        self.default_settings = kwargs.get('default_settings', DEFAULT_SETTINGS)
-        self.get_zmq = kwargs.get('get_zmq', GetZeroMQ())
-
-    def __call__(self, config):
-        settings = config.get_settings()
-        for key, value in self.default_settings.items():
-            settings.setdefault(key, value)
-        config.add_request_method(self.get_zmq, 'zmq', reify=True)
-
-
-includeme = IncludeMe().__call__
+def includeme(config):
+    settings = config.get_settings()
+    for key, value in DEFAULT_SETTINGS.items():
+        settings.setdefault(key, value)
+    config.add_request_method(GetZeroMQ(), 'zmq', reify=True)

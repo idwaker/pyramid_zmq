@@ -7,7 +7,7 @@ zmq helpers to create PUSH/PULL, PUB/SUB sockets
 import zmq
 
 
-class ZeroMQ(object):
+class ZMQContext(object):
     
     """ zmq context object """
 
