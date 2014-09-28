@@ -92,18 +92,3 @@ class ZeroMQFactory(object):
         # And use it to instantiate a zmq context.
         return self.zmq(**zmq_conf)
 
-
-class GetZeroMQ(object):
-
-    """Provide the zmq factory as a Pyramid request method."""
-
-    def __init__(self, **kwargs):
-        self.zmq_factory = kwargs.get('zmq_factory', ZeroMQFactory())
-
-    def __call__(self, request):
-        registry = request.registry
-        print(registry.settings)
-        return self.zmq_factory(registry.settings, registry=registry)
-    
-    def from_settings(self, settings):
-        return self.zmq_factory(settings)

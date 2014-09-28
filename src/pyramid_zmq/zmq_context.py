@@ -17,6 +17,11 @@ class ZMQContext(object):
         self.pushpull_url = kwargs.get('pushpull_url')
         self.pubsub_url = kwargs.get('pubsub_url')
     
+    def configure(self, **kwargs):
+        """ update from settings """
+        self.pushpull_url = kwargs.get('zmq.pushpull.url', kwargs.get('zmq.url'))
+        self.pubsub_url = kwargs.get('zmq.pushpull.url', kwargs.get('zmq.url'))
+    
     def push(self):
         """ should return a zmq PUSH socket """
         socket = self.context.socket(zmq.PUSH)

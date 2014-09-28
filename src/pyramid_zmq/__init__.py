@@ -6,11 +6,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 from .config import DEFAULT_SETTINGS
-from .hooks import GetZeroMQ
+from .hooks import ZeroMQFactory
+
+
+def zeromq_maker():
+    factory = ZeroMQFactory()
+    return factory()
+
+
+def _zeromq(request):
+    registry = request.registry
+    factory = ZeroMQFactory()
+    return factory(registry.settings, registry=registry)
 
 
 def includeme(config):
     settings = config.get_settings()
     for key, value in DEFAULT_SETTINGS.items():
         settings.setdefault(key, value)
-    config.add_request_method(GetZeroMQ(), 'zmq', reify=True)
+    config.add_request_method(_zeromq, 'zmq', reify=True)
